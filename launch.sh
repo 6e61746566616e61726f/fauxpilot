@@ -32,4 +32,4 @@ while getopts "hd" option; do
 done
 
 # On newer versions, docker-compose is docker compose
-docker compose up $options --remove-orphans || docker-compose up $options --remove-orphans
+docker compose up $options --remove-orphans

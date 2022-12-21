@@ -1,9 +1,7 @@
 version: '3.3'
 services:
   triton:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: 6e61746566616e61726f/triton:latest
     command: bash -c "CUDA_VISIBLE_DEVICES=${GPUS} mpirun -n 1 --allow-run-as-root /opt/tritonserver/bin/tritonserver --model-repository=/model"
     shm_size: '2gb'
     volumes:
@@ -19,15 +17,10 @@ services:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
+              capabilities: [ gpu ]
   copilot_proxy:
-    # For dockerhub version
-    image: moyix/copilot_proxy:latest
-    # For local build
-    # build:
-    #   context: ./copilot_proxy
+    image: 6e61746566616e61726f/copilot_proxy:latest
     env_file:
-      # Automatically created via ./setup.sh
       - .env
     ports:
       - "${API_EXTERNAL_PORT}:5000"
